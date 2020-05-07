@@ -1,0 +1,227 @@
+@import (inline) "normalize.min.css";
+
+html {
+	width:100%;
+
+	height:100%;
+	position: relative;
+
+	background: #000;
+
+	font-size: 1vw;
+}
+
+#container {
+
+	@maxWidth: 1920px;
+	@maxHeight: 1080px;
+
+	position: relative;
+	width: 100%;
+
+	background: #000;
+
+	.input {
+
+		text-align: right;
+		@inputWidth: 287px;
+		@inputHeight: 100px;
+
+		border: 0 none;
+		background: transparent;
+
+		font-size: (100px/@maxWidth) * 100vw;
+
+		height: (@inputHeight/@maxHeight) * 100%;
+		width: (@inputWidth/@maxWidth) * 100%;
+
+		position: absolute;
+	}
+
+	#inputMinus {
+		@inputLeft: 181px;
+		@inputTop: 574px;
+
+		top: (@inputTop/@maxHeight) * 100%;
+		left: (@inputLeft/@maxWidth) * 100%;
+	}
+	#inputPlus {
+		@inputLeft: 181px;
+		@inputTop: 372px;
+
+		top: (@inputTop/@maxHeight) * 100%;
+		left: (@inputLeft/@maxWidth) * 100%;
+	}
+	
+	#resultText {
+		display:table;
+
+		@resultWidth: 382px;
+		@resultHeight: 350px;
+
+		@resultLeft: 1050px + @resultWidth / 2;
+		@resultTop: 220px;
+
+		font-size: (300px/@maxWidth) * 100vw;
+
+		height: (@resultHeight/@maxHeight) * 100%;
+		width: (@resultWidth/@maxWidth) * 100%;
+
+		position: absolute;
+		top: (@resultTop/@maxHeight) * 100%;
+		left: (@resultLeft/@maxWidth) * 100%;
+
+		transform: rotate(8deg);
+
+		.in {
+			display: table-cell;
+			text-align: center;
+			vertical-align: middle;
+
+			color:#2b3d25;
+		}
+	}
+
+	#dice {
+
+		@diceWidth: 463px;
+		@diceHeight: 506px;
+
+		@diceLeft: 607px;
+		@diceTop: 291px;
+
+		background: url("dice.png") center no-repeat;
+		background-size: contain;
+
+		height: (@diceHeight/@maxHeight) * 100%;
+		width: (@diceWidth/@maxWidth) * 100%;
+
+
+		position: absolute;
+		top: (@diceTop/@maxHeight) * 100%;
+		left: (@diceLeft/@maxWidth) * 100%;
+
+		&.rolling {
+			.animation(idle, 300ms, linear, 0s, infinite);
+		}
+		&.rolled {
+			.animation(roll, 1s, ease-out, 0s, 1);
+		}
+
+		.value {
+			font-size: (190px/@maxWidth) * 100vw;
+			display:table;
+
+
+			width:100%;
+			height:100%;
+
+			.in {
+				display: table-cell;
+				text-align: center;
+				vertical-align: middle;
+
+				color:#173860;
+
+				-webkit-text-stroke-width: 0.4vw * (@diceLeft/@maxWidth);
+				-webkit-text-stroke-color: white;
+			}
+		}
+
+	}
+	
+	#rollButton {
+		@buttonWidth: 502px;
+		@buttonHeight: 156px;
+
+		@buttonLeft: 84px;
+		@buttonTop: 754px;
+
+		background: url("button.png") center no-repeat;
+		background-size: contain;
+
+		height: (@buttonHeight/@maxHeight) * 100%;
+		width: (@buttonWidth/@maxWidth) * 100%;
+
+		transform: rotate(0deg);
+
+		position: absolute;
+		top: (@buttonTop/@maxHeight) * 100%;
+		left: (@buttonLeft/@maxWidth) * 100%;
+
+		&:hover {
+			margin-left: -0.5%;
+			margin-top: -0.5%;
+		}
+		&:active {
+			margin-left: 1%;
+			margin-top: 1%;
+		}
+	}
+
+
+	#layout {
+		display: block;
+		width: 100%;
+	}
+}
+
+.animation (@name, @duration: 300ms, @ease: ease, @delay: 0s, @iteration: 1) {
+	animation: 		   @name @duration @ease @delay @iteration;
+	-webkit-animation: @name @duration @ease @delay @iteration;
+	-moz-animation:    @name @duration @ease @delay @iteration;
+	-ms-animation:     @name @duration @ease @delay @iteration;
+}
+
+.keyframes(@name,@rules) {
+	@-webkit-keyframes @name {
+		@rules();
+	}
+
+	@-moz-keyframes @name {
+		@rules();
+	}
+
+	@-ms-keyframes @name {
+		@rules();
+	}
+
+	@-o-keyframes @name {
+		@rules();
+	}
+
+	@keyframes @name {
+		@rules();
+	}
+}
+
+.keyframes(idle, {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+});
+
+.keyframes(roll, {
+	0% {
+		transform: rotate(0deg);
+	}
+
+	30% {
+		transform: rotate(-180deg);
+	}
+
+	60% {
+		transform: rotate(180deg);
+	}
+
+	80% {
+		transform: rotate(240deg);
+	}
+
+	100% {
+		transform: rotate(360deg);
+	}
+});
